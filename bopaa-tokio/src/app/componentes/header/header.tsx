@@ -19,14 +19,24 @@ export const Header = () => {
   }
 
   return (
-
+    <>
     <div className='container-Header'>
       <div className='HeaderLeft'>
-        <img className='LogoHeader' src={logoPng.src} alt="CasaLindner" onClick={goHome} style={{ height: '75px', objectFit: 'contain' }} />
-        <img className='LogoHeader' src={textLogo.src} alt="CasaLindner" onClick={goHome} style={{ height: '75px', objectFit: 'contain' }} />
+        <img className='LogoHeader' src={logoPng.src} alt="CasaLindner" onClick={goHome}  />
+        <img className='LogoHeader' src={textLogo.src} alt="CasaLindner" onClick={goHome} />
+      </div>
+      <div className="HeaderRighT">
+        <div className="LanguageSelector">
+        <select /* value={language} onChange={handleChangeLanguage} */>s
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="ja">日本語 (Japonés)</option>
+      </select>
+        </div>
       </div>
 
     </div>
 
+    </>
   )
 }
