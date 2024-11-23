@@ -1,8 +1,8 @@
-/* .home{
+.home{
   display: flex;
   justify-content: space-between;
   align-items: center;
-} */
+}
 .cardsContainer {
   margin: 10px;
 /*   display: flex;

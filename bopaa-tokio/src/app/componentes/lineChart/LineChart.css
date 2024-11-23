@@ -1,0 +1,40 @@
+/* Fondo general y estilo del contenedor */
+.chartContainer {
+  background-color: #121212;
+  padding: 20px;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+/* Estilos para los botones de rango */
+.rangeButton {
+  background-color: #222222;
+  color: #aaaaaa;
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.rangeButtonActive {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Estilo de texto de carga */
+.loadingText {
+  text-align: center;
+}
+
+/* Estilos para el botón de cierre */
+.closeButton {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
