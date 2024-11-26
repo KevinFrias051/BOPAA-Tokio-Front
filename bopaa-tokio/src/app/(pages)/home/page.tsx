@@ -6,6 +6,7 @@ import { ChartComponent } from '@/app/componentes/graficos/ChartComponent';
 import clienteAxios, { baseURL } from '@/app/services/Axios';
 import { CardCotizacion } from '@/app/componentes/cardCotizacion/cardCotizacion';
 import LineChart from '@/app/componentes/lineChart/LineChart';
+import { useTranslation } from 'react-i18next'; // Importa el hook para la traducción
 
 interface DataItem {
   empresa: string;
@@ -19,6 +20,7 @@ interface EmpresaData {
   cotizationInicial: string;
   cantidadAcciones: string;
 }
+
 const arrCodigosEmpresas = ['GOOGL', 'NVDA', 'NESN.SW', 'KO', 'BA', 'WMT', 'SHEL'];
 
 const fetchData = async (): Promise<{ cotizaciones: DataItem[]; empresas: EmpresaData[] }> => {
@@ -54,6 +56,7 @@ const filterAndTransform = (data: DataItem[], tipo: string): [string, number][] 
     .map(item => [item.empresa, item.participacion]);
 
 export default function Home() {
+  const { t } = useTranslation(); // Hook de traducción
   const [chartData, setChartData] = useState<[string, number][]>([]);
   const [selectedType, setSelectedType] = useState<"DIA" | "MES">("DIA");
   const [allData, setAllData] = useState<DataItem[]>([]);
@@ -64,7 +67,6 @@ export default function Home() {
       try {
         const { cotizaciones, empresas } = await fetchData();
         const transformedData = transformData(cotizaciones, empresas);
-        console.log(transformData)
         setAllData(transformedData);
         setChartData(filterAndTransform(transformedData, selectedType));
       } catch (error) {
@@ -83,46 +85,39 @@ export default function Home() {
   }, [selectedType, allData]);
 
   return (
-    <>
-      <Header />
-
-      <div className="home">
-
-        <div className="cardsContainer" >
-          {arrCodigosEmpresas.map((cod) => (
-            <CardCotizacion codEmpresa={cod} />
-          ))}
-        </div>
-
-        <div className="container">
-          <h1 className="text-center mb-4">Cotización de la Empresa</h1>
-          {loading ? (
-            <div className="text-center">
-              <p>Cargando datos...</p>
-              <div className="spinner-border text-primary" role="status"></div>
-            </div>
-          ) : (
-            <>
-              <ChartComponent data={chartData} selectedType={selectedType} />
-              <div className="button-group text-center">
-                <button
-                  className={`btn btn-primary me-2 ${selectedType === "DIA" ? "active" : ""}`}
-                  onClick={() => setSelectedType("DIA")}
-                >
-                  DIA
-                </button>
-                <button
-                  className={`btn btn-secondary ${selectedType === "MES" ? "active" : ""}`}
-                  onClick={() => setSelectedType("MES")}
-                >
-                  MES
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-
+    <div className="home">
+      <div className="cardsContainer">
+        {arrCodigosEmpresas.map((cod) => (
+          <CardCotizacion key={cod} codEmpresa={cod} />
+        ))}
       </div>
-    </>
+
+      <div className="graficoContainer">
+        {loading ? (
+          <div className="text-center">
+            <p>{t("loading")}</p>
+            <div className="spinner-border text-primary" role="status"></div>
+          </div>
+        ) : (
+          <>
+            <ChartComponent data={chartData} selectedType={selectedType} />
+            <div className="button-group text-center">
+              <button
+                className={`btn ${selectedType === "DIA" ? "btn-primary active" : "btn-outline-primary"} me-2`}
+                onClick={() => setSelectedType("DIA")}
+              >
+                {t("chart.type.DIA")}
+              </button>
+              <button
+                className={`btn ${selectedType === "MES" ? "btn-primary active" : "btn-outline-secondary"}`}
+                onClick={() => setSelectedType("MES")}
+              >
+                {t("chart.type.MES")}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }

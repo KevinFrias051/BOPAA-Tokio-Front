@@ -6,11 +6,12 @@
   padding: 16px;
   width: 100%;
   max-width: 400px;
+  height: 105px;
   background-color: #121212; /* Fondo oscuro */
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   color: white;
-  margin: 10px auto;
+  margin: 10px ;
   font-family: Arial, sans-serif;
 }
 
@@ -18,6 +19,10 @@
 .nombresEmpresa {
   display: flex;
   flex-direction: column;
+  width: 130px;
+}
+.boton{
+  margin-left: 5px;
 }
 
 .codigo {
@@ -27,13 +32,15 @@
 
 .nombre {
   font-size: 14px;
-  color: #aaa; /* Texto secundario */
+  color: #aaa; 
+  
 }
 
-/* Información principal de la cotización */
 .informacion {
   display: flex;
   align-items: center;
+  
+  justify-content: center;
 }
 
 .valor {
@@ -75,7 +82,7 @@
 /* Botón para abrir el gráfico */
 .btn-grafico {
   margin-top: 10px;
-  padding: 8px 12px;
+  padding: 6px 6px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -104,7 +111,7 @@
   left: 5%;
   width: 90%;
   height: 90%;
-  background: white;
+  background: transparent;
   border-radius: 10px;
   padding: 20px;
   z-index: 1001;
@@ -120,4 +127,8 @@
   font-size: 1.5rem;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+.icon-large {
+  font-size: 40px;
 }

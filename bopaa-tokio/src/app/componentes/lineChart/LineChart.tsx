@@ -102,7 +102,7 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
       background: "#121212",
     },
     title: {
-      text: "Cotización del Mercado",
+      text: `Cotización del Mercado De ${cod}`,
       align: "center",
       style: {
         color: "#ffffff",
