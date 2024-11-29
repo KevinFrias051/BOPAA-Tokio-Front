@@ -2,16 +2,16 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { useTranslation } from "react-i18next"; // Importar el hook de traducción
+import { useTranslation } from "react-i18next"; 
 import './ChartComponent.css';
 
 interface ChartComponentProps {
-  data: [string, number][]; // Datos para el gráfico
-  selectedType: "DIA" | "MES"; // Tipo seleccionado
+  data: [string, number][];
+  selectedType: "DIA" | "MES"; 
 }
 
 export const ChartComponent: React.FC<ChartComponentProps> = ({ data, selectedType }) => {
-  const { t } = useTranslation(); // Inicializar traducción
+  const { t } = useTranslation(); 
 
   const options: ApexOptions = {
     chart: {
@@ -22,7 +22,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({ data, selectedTy
     labels: data.map(item => item[0]), 
     title: {
       text: t('chart.title', { type: t(`chart.type.${selectedType}`) }), 
-      align: "center",
+      align: "left",
       style: {
         fontSize: "24px",
         fontWeight: "bold",
@@ -31,7 +31,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({ data, selectedTy
       offsetY: 0,
     },
     legend: {
-      position: "right",
+      position: "bottom",
     },
     tooltip: {
       theme: "light",
@@ -52,7 +52,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({ data, selectedTy
 
   return (
     <div className="chart-container">
-      <ReactApexChart options={options} series={series} type="pie" width="900px" height="900px" />
+      <ReactApexChart options={options} series={series} type="pie" width="800px" height="800px" />
     </div>
   );
 };

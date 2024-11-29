@@ -1,12 +1,10 @@
 "use client";
 import './home.css';
 import React, { useEffect, useState } from 'react';
-import { Header } from '@/app/componentes/header/header';
 import { ChartComponent } from '@/app/componentes/graficos/ChartComponent';
 import clienteAxios, { baseURL } from '@/app/services/Axios';
 import { CardCotizacion } from '@/app/componentes/cardCotizacion/cardCotizacion';
-import LineChart from '@/app/componentes/lineChart/LineChart';
-import { useTranslation } from 'react-i18next'; // Importa el hook para la traducción
+import { useTranslation } from 'react-i18next';
 
 interface DataItem {
   empresa: string;
@@ -46,7 +44,7 @@ const transformData = (
 
   return cotizaciones.map(item => ({
     ...item,
-    empresa: empresaMap[item.empresa] || item.empresa, // Reemplaza el código por el nombre, o deja el código si no hay coincidencia.
+    empresa: empresaMap[item.empresa] || item.empresa,
   }));
 };
 
@@ -56,7 +54,7 @@ const filterAndTransform = (data: DataItem[], tipo: string): [string, number][] 
     .map(item => [item.empresa, item.participacion]);
 
 export default function Home() {
-  const { t } = useTranslation(); // Hook de traducción
+  const { t } = useTranslation();
   const [chartData, setChartData] = useState<[string, number][]>([]);
   const [selectedType, setSelectedType] = useState<"DIA" | "MES">("DIA");
   const [allData, setAllData] = useState<DataItem[]>([]);

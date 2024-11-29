@@ -1,19 +1,17 @@
-"use client"; // Marca este componente como un Client Component
-
+"use client";
 import './header.css';
 import { useRouter, usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next'; // Importa el hook para la traducción
+import { useTranslation } from 'react-i18next';
 
 import logoPng from '../../../../public/logos/logoPng.png';
-import textLogo from '../../../../public/logos/textLogo.png';
+import textLogo from '../../../../public/logos/textLogoW.png';
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { t, i18n } = useTranslation(); // Hook de traducción
+  const { t, i18n } = useTranslation();
 
-  // Función para cambiar el idioma
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
@@ -37,22 +35,19 @@ export const Header = () => {
 
   const handleButtonClick = () => {
     if (pathname === '/indices') {
-      // Si estamos en la ruta /indices, redirige a /home
       router.push('/home');
     } else {
-      // De lo contrario, redirige a /indices
       router.push('/indices');
     }
   };
 
   return (
     <div className="container-Header">
-      {/* Sección izquierda del header */}
       <div className="HeaderLeft">
         <img
           className="LogoHeader"
           src={logoPng.src}
-          alt={t('header.logoAlt')} // Usamos la traducción para el texto alternativo
+          alt={t('header.logoAlt')}
           onClick={goHome}
         />
         <img
@@ -63,7 +58,6 @@ export const Header = () => {
         />
       </div>
 
-      {/* Cartel de estado del mercado */}
       <div className="MarketStatus">
         <p className={`MarketStatusText ${marketOpen ? 'open' : 'closed'}`}>
           {marketOpen
@@ -72,7 +66,6 @@ export const Header = () => {
         </p>
       </div>
 
-      {/* Sección derecha del header */}
       <div className="HeaderRight">
         <button className="IndicesButton" onClick={handleButtonClick}>
           {pathname === '/indices' ? t('header.viewCompanies') : t('header.viewIndices')}

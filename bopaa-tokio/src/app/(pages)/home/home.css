@@ -34,12 +34,12 @@
 
 .btn-outline-primary {
   background-color: transparent;
-  border: 2px solid #007bff;
-  color: #007bff;
+  border: 2px solid #1d719d;
+  color: #1d719d;
 }
 
 .btn-primary.active, .btn-outline-primary:hover {
-  background-color: #0056b3;
+  background-color: #1d719d;
   color: white;
 }
 

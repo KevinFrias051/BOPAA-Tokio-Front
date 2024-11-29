@@ -1,11 +1,9 @@
-"use client"; // Marcado como componente cliente
-
-import { metadata } from './metadata'; // Importa metadata aquí
-
+"use client";
+import { metadata } from './metadata';
 import { ReactNode } from 'react';
 import './globals.css';
 import { Header } from './componentes/header/header';
-import './../i18n'; // Importa la configuración de i18n
+import './../i18n'; 
 import { I18nextProvider } from 'react-i18next';
 import i18n from './../i18n';
 

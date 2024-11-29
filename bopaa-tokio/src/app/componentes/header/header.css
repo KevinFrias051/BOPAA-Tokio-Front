@@ -1,8 +1,7 @@
-/* Contenedor principal del header */
 .container-Header {
-  background-color: #1f1f1f; /* Fondo oscuro */
-  width: 100%; /* Ocupa todo el ancho */
-  height: 60px; /* Altura del header ajustada */
+  background-color: #1e1e1e; 
+  width: 100%; 
+  height: 70px; 
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,62 +9,57 @@
   padding: 0 20px;
 }
 
-/* Sección izquierda */
 .HeaderLeft {
   display: flex;
   flex-direction: row;
 }
 
-/* Estilo para los logos */
 .LogoHeader {
-  height: 50px; /* Tamaño ajustado */
+  margin: 10px 0px 10px 0px;
+  height: 50px;
   object-fit: contain;
-  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  cursor: pointer; 
 }
 
-/* Cartel de estado del mercado */
 .MarketStatus {
   text-align: center;
-  flex-grow: 1; /* Ocupa el espacio central */
+  flex-grow: 1; 
 }
 
 .MarketStatusText {
-  font-size: 14px; /* Tamaño más pequeño */
+  font-size: 14px; 
   font-weight: bold;
-  padding: 5px 10px; /* Espaciado interno más pequeño */
-  border-radius: 5px; /* Bordes redondeados */
-  color: #fff; /* Texto blanco */
-  margin: 0 auto; /* Centra el texto */
-  max-width: 200px; /* Ancho máximo */
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  color: #fff;
+  margin: 0 auto;
+  max-width: 200px;
 }
 
 .MarketStatusText.open {
-  background-color: #28a745; /* Verde para mercado abierto */
+  background-color: #28a745; 
 }
 
 .MarketStatusText.closed {
-  background-color: #dc3545; /* Rojo para mercado cerrado */
+  background-color: #dc3545; 
 }
 
-/* Sección derecha */
 .HeaderRight {
   display: flex;
   align-items: center;
 }
 
-/* Selector de idioma */
 .LanguageSelector select {
-  background-color: #2f2f2f; /* Fondo oscuro */
-  color: #fff; /* Texto blanco */
-  border: none; /* Sin bordes */
-  padding: 5px 10px; /* Espaciado interno */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cursor interactivo */
+  background-color: #2f2f2f;
+  color: #fff; 
+  border: none;
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  cursor: pointer; 
 }
 
-/* Cambios al interactuar con el selector */
 .LanguageSelector select:hover {
-  background-color: #2f2f2f; /* Fondo púrpura al pasar el mouse */
+  background-color: #2f2f2f; 
 }
 
 

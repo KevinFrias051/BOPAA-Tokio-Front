@@ -1,13 +1,12 @@
-"use client"; // Marca este componente como un Client Component
-
+"use client";
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { useTranslation } from 'react-i18next'; // Importa el hook para la traducción
+import { useTranslation } from 'react-i18next';
 import "./MultiLineChart.css";
 
 interface LineChartProps {
-  data: { name: string; data: { x: string; y: number }[] }[]; // Serie de datos
+  data: { name: string; data: { x: string; y: number }[] }[];
 }
 
 const filterDataByRange = (
@@ -40,7 +39,7 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
     }))
   );
 
-  const { t } = useTranslation(); // Hook de traducción
+  const { t } = useTranslation();
 
   useEffect(() => {
     const updatedSeries = data.map((serie) => ({
@@ -50,7 +49,7 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
     setFilteredSeries(updatedSeries);
   }, [range, data]);
 
-  // Traducción del tipo de intervalo
+
   const rangeTranslation = t(`chart.type.${range}`);
 
   const options: ApexOptions = {
@@ -113,7 +112,7 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
             }`}
             onClick={() => setRange(timeRange as typeof range)}
           >
-            {t(`chart.button.${timeRange}`)} {/* Traducción de rangos */}
+            {t(`chart.button.${timeRange}`)}
           </button>
         ))}
       </div>

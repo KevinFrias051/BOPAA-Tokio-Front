@@ -5,7 +5,6 @@ import { toZonedTime } from "date-fns-tz";
 import clienteAxios from "@/app/services/Axios";
 import { baseURL } from "@/app/services/Axios";
 
-// Importación de los estilos CSS globales
 import "./LineChart.css";
 
 type LineChartProps = {
@@ -17,7 +16,6 @@ const processLineCotizations = (data: any[]) => {
   return data.map((item) => {
     const datetime = `${item.fecha}T${item.hora}:00`; 
     const zonedDate = toZonedTime(datetime, 'Asia/Tokyo'); 
-    console.log('zonedDate:', zonedDate);
     return {
       x: zonedDate,
       y: parseFloat(item.cotizacion),
@@ -26,7 +24,6 @@ const processLineCotizations = (data: any[]) => {
 };
 
 
-// Filtrar datos según el rango
 const filterDataByRange = (
   data: any[],
   range: "1d" | "3d" | "1w" | "1m" | "all"
@@ -48,7 +45,6 @@ const filterDataByRange = (
   });
 };
 
-// Reducir datos para optimizar rendimiento
 const downsampleData = (data: any[], step: number) => {
   return data.filter((_, index) => index % step === 0);
 };
@@ -59,7 +55,6 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
   const [filteredData, setFilteredData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Función para cargar y procesar los datos de la API
   useEffect(() => {
     const loadCotizations = async () => {
       setLoading(true);
@@ -83,7 +78,6 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
     loadCotizations();
   }, [cod]);
 
-  // Manejar el filtrado y downsampling de los datos
   useEffect(() => {
     let dataToDisplay = range === "all" 
       ? downsampleData(processedData, Math.max(Math.floor(processedData.length / 1000), 1))
@@ -91,7 +85,6 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
     setFilteredData(dataToDisplay);
   }, [range, processedData]);
 
-  // Opciones de configuración para ApexCharts
   const options: ApexOptions = {
     chart: {
       type: "line",
@@ -142,12 +135,11 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
         const difference = point.y - prevPoint;
         const percentChange = (difference / prevPoint) * 100;
 
-        // Cambiar color según el porcentaje de cambio
         return Math.abs(percentChange) > 0.1
           ? percentChange > 0
-            ? "#00ff00" // Verde
-            : "#ff0000" // Rojo
-          : "#00c8ff"; // Azul por defecto
+            ? "#00ff00" 
+            : "#ff0000" 
+          : "#00c8ff";
       }),
     },
     stroke: {

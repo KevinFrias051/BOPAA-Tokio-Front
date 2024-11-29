@@ -19,7 +19,7 @@ interface CardCotizacionProps {
 }
 
 export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa }) => {
-  const { t } = useTranslation(); // Hook de traducción
+  const { t } = useTranslation(); 
   const [cotizacion, setCotizacion] = useState<ICotizacionCard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

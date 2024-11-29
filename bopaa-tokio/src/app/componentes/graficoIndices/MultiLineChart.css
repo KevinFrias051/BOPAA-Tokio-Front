@@ -1,24 +1,22 @@
-/* Estilo general del contenedor del gráfico */
+
 .chart-container {
-  background-color: #121212; /* Fondo oscuro */
+  background-color: #121212; 
   border-radius: 10px;
   padding: 20px;
-  color: white; /* Texto en blanco */
+  color: white; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   font-family: Arial, sans-serif;
 }
 
-/* Contenedor de los botones */
 .chart-container > div {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-/* Estilo de los botones */
 .rangeButton {
-  background-color: #1e1e1e; /* Fondo oscuro */
-  border: 1px solid #333333; /* Borde sutil */
+  background-color: #1e1e1e; 
+  border: 1px solid #333333; 
   color: white;
   padding: 8px 12px;
   margin: 0 5px;
@@ -28,30 +26,28 @@
   transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Efecto hover en los botones */
 .rangeButton:hover {
-  background-color: #007bff; /* Azul para resaltar */
+  background-color: #007bff;
   color: white;
-  transform: scale(1.05); /* Pequeño aumento */
+  transform: scale(1.05); 
 }
 
-/* Botón activo */
 .rangeButtonActive {
-  background-color: #007bff; /* Azul activo */
+  background-color: #007bff;
   color: white;
   font-weight: bold;
   border: none;
 }
 
-/* Gráfico de ApexCharts */
+
 .apexcharts-canvas {
-  background: #1e1e1e !important; /* Fondo oscuro para el gráfico */
-  border-radius: 10px; /* Bordes redondeados */
+  background: #1e1e1e !important; 
+  border-radius: 10px;
 }
 
 .apexcharts-tooltip {
-  background: #333333 !important; /* Fondo oscuro del tooltip */
-  color: white !important; /* Texto blanco */
+  background: #333333 !important; 
+  color: white !important; 
   border-radius: 5px;
   padding: 10px;
 }

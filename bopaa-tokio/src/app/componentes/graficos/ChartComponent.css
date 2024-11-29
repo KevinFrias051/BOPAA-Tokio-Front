@@ -2,29 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Usar todo el ancho disponible */
-  height: 100%; /* Usar todo el alto disponible */
+  width: 100%; 
+  height: 100%; 
   padding: 20px;
   margin: 0 auto;
 }
 
-/* Título del gráfico */
 .apexcharts-title-text {
-  font-size: 24px !important; /* Tamaño del título */
+  font-size: 24px !important; 
   font-weight: bold !important;
-  color: #ffffff !important; /* Color del texto del título */
+  color: #ffffff !important;
   text-align: center !important;
-  margin-bottom: 20px; /* Margen inferior para separar del gráfico */
+  margin-bottom: 20px; 
 }
 
-/* Leyenda del gráfico */
 .apexcharts-legend-text {
-  font-size: 16px !important; /* Tamaño del texto de la leyenda */
-  color: #ffffff !important; /* Color del texto de la leyenda */
+  font-size: 16px !important; 
+  color: #ffffff !important;
 }
 
-/* Tooltip del gráfico */
+
 .apexcharts-tooltip-text {
-  font-size: 14px !important; /* Tamaño del texto del tooltip */
-  color: #ffffff !important; /* Color del texto del tooltip */
+  font-size: 14px !important; 
+  color: #ffffff !important;
 }
