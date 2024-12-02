@@ -1,11 +1,11 @@
-"use client"; // Marca este componente como un Client Component
+"use client";
 
 import React, { useEffect, useState } from "react";
 import "./cardCotizacion.css";
 import clienteAxios, { baseURL } from "@/app/services/Axios";
 import LineChart from "../lineChart/LineChart";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useTranslation } from "react-i18next"; // Importa el hook para la traducción
+import { useTranslation } from "react-i18next";
 
 interface ICotizacionCard {
   codEmpresa: string;
@@ -16,10 +16,12 @@ interface ICotizacionCard {
 
 interface CardCotizacionProps {
   codEmpresa: string;
+  currency: 'USD' | 'YEN'; // Moneda seleccionada
+  exchangeRate: number;   // Tasa de cambio USD -> YEN
 }
 
-export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa }) => {
-  const { t } = useTranslation(); 
+export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, currency, exchangeRate }) => {
+  const { t } = useTranslation();
   const [cotizacion, setCotizacion] = useState<ICotizacionCard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,6 +53,10 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa }) =>
 
   const { nombreEmpresa, valorActual, fluctuacion } = cotizacion;
 
+  // Convertir el valor actual según la moneda seleccionada
+  const convertedValue =
+    currency === "USD" ? valorActual : valorActual * exchangeRate;
+
   return (
     <div className="cardCotizacion">
       <div className="nombresEmpresa">
@@ -60,30 +66,38 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa }) =>
       <div className="informacion">
         <div className="flecha">
           {fluctuacion > 0 ? (
-            <span style={{ color: "#00c853" }}><i className="bi bi-arrow-up-short icon-large"></i></span> // Verde para positivo
+            <span style={{ color: "#00c853" }}>
+              <i className="bi bi-arrow-up-short icon-large"></i>
+            </span>
           ) : fluctuacion < 0 ? (
-            <span style={{ color: "#d50000" }}><i className="bi bi-arrow-down-short icon-large"></i></span> // Rojo para negativo
+            <span style={{ color: "#d50000" }}>
+              <i className="bi bi-arrow-down-short icon-large"></i>
+            </span>
           ) : (
-            <span style={{ color: "#546e7a" }}> <i className="bi bi-arrow-right-short icon-large"></i> </span> // Gris para neutro
+            <span style={{ color: "#546e7a" }}>
+              <i className="bi bi-arrow-right-short icon-large"></i>
+            </span>
           )}
         </div>
         <div className="valor">
-          <p>${valorActual}</p>
+          <p>
+            {currency === "USD" ? "$" : "¥"} {convertedValue}
+          </p>
           <p
-            className={`porcentaje ${fluctuacion > 0 ? "" : fluctuacion < 0 ? "negativo" : "neutro"}`}
+            className={`porcentaje ${
+              fluctuacion > 0 ? "" : fluctuacion < 0 ? "negativo" : "neutro"
+            }`}
           >
             {fluctuacion.toFixed(2)}%
           </p>
         </div>
       </div>
-      {/* Botón para abrir el modal */}
       <div className="boton">
         <button className="btn-grafico" onClick={() => setShowModal(true)}>
-          {t("viewChart")} {/* Traducción del botón */}
+          {t("viewChart")}
         </button>
       </div>
 
-      {/* Modal con el gráfico */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">

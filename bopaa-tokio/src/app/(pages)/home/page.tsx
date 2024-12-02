@@ -1,10 +1,11 @@
 "use client";
-import './home.css';
-import React, { useEffect, useState } from 'react';
-import { ChartComponent } from '@/app/componentes/graficos/ChartComponent';
-import clienteAxios, { baseURL } from '@/app/services/Axios';
-import { CardCotizacion } from '@/app/componentes/cardCotizacion/cardCotizacion';
-import { useTranslation } from 'react-i18next';
+import "./home.css";
+import React, { useEffect, useState } from "react";
+import { ChartComponent } from "@/app/componentes/graficos/ChartComponent";
+import clienteAxios, { baseURL } from "@/app/services/Axios";
+import { CardCotizacion } from "@/app/componentes/cardCotizacion/cardCotizacion";
+import { useTranslation } from "react-i18next";
+import { CurrencySelector } from "@/app/componentes/CurrencySelector/currencySelector";
 
 interface DataItem {
   empresa: string;
@@ -19,7 +20,7 @@ interface EmpresaData {
   cantidadAcciones: string;
 }
 
-const arrCodigosEmpresas = ['GOOGL', 'NVDA', 'NESN.SW', 'KO', 'BA', 'WMT', 'SHEL'];
+const arrCodigosEmpresas = ["GOOGL", "NVDA", "NESN.SW", "KO", "BA", "WMT", "SHEL"];
 
 const fetchData = async (): Promise<{ cotizaciones: DataItem[]; empresas: EmpresaData[] }> => {
   const [cotizacionesRes, empresasRes] = await Promise.all([
@@ -42,7 +43,7 @@ const transformData = (
     return map;
   }, {});
 
-  return cotizaciones.map(item => ({
+  return cotizaciones.map((item) => ({
     ...item,
     empresa: empresaMap[item.empresa] || item.empresa,
   }));
@@ -50,14 +51,16 @@ const transformData = (
 
 const filterAndTransform = (data: DataItem[], tipo: string): [string, number][] =>
   data
-    .filter(item => item.tipo === tipo)
-    .map(item => [item.empresa, item.participacion]);
+    .filter((item) => item.tipo === tipo)
+    .map((item) => [item.empresa, item.participacion]);
 
 export default function Home() {
   const { t } = useTranslation();
   const [chartData, setChartData] = useState<[string, number][]>([]);
   const [selectedType, setSelectedType] = useState<"DIA" | "MES">("DIA");
   const [allData, setAllData] = useState<DataItem[]>([]);
+  const [currency, setCurrency] = useState<"USD" | "YEN">("USD");
+  const [exchangeRate, setExchangeRate] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,6 +80,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    setExchangeRate(currency === "YEN" ? 150 : 1); // 1 USD = 150 Yen 
+  }, [currency]);
+
+
+  useEffect(() => {
     if (allData.length > 0) {
       setChartData(filterAndTransform(allData, selectedType));
     }
@@ -84,9 +92,16 @@ export default function Home() {
 
   return (
     <div className="home">
+
       <div className="cardsContainer">
+        <CurrencySelector currency={currency} onChange={setCurrency} />
         {arrCodigosEmpresas.map((cod) => (
-          <CardCotizacion key={cod} codEmpresa={cod} />
+          <CardCotizacion
+            key={cod}
+            codEmpresa={cod}
+            currency={currency}
+            exchangeRate={exchangeRate}
+          />
         ))}
       </div>
 

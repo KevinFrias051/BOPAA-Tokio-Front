@@ -59,15 +59,16 @@
 }
 
 .LanguageSelector select:hover {
-  background-color: #2f2f2f; 
+  background-color: #2e2e2e; 
 }
 
 
 .IndicesButton {
-  background-color: transparent;
+  background-color: #2f2f2f;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 10px;
+  margin-right: 10px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
@@ -76,7 +77,6 @@
 
 .IndicesButton:hover {
   background-color: peru;
-  text-decoration: underline;
 }
 
 .IndicesButton:focus {

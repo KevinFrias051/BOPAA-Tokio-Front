@@ -47,13 +47,13 @@ export const Header = () => {
         <img
           className="LogoHeader"
           src={logoPng.src}
-          alt={t('header.logoAlt')}
+          alt='TokyoStockExchange'
           onClick={goHome}
         />
         <img
           className="LogoHeader"
           src={textLogo.src}
-          alt={t('header.textLogoAlt')}
+          alt='TokyoStockExchange'
           onClick={goHome}
         />
       </div>

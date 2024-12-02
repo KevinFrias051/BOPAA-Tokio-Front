@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { MultiLineChart } from "@/app/componentes/graficoIndices/MultiLineChart";
 import clienteAxios, { baseURL } from "@/app/services/Axios";
-import { useTranslation } from 'react-i18next'; // Importa el hook para la traducción
+import { useTranslation } from "react-i18next";
 
 const Home2: React.FC = () => {
-  const { t } = useTranslation(); // Hook de traducción
-  const [chartData, setChartData] = useState<any[]>([]); // Chart data
-  const [loading, setLoading] = useState(true); // Loading state
+  const { t } = useTranslation();
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isRendered, setIsRendered] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,8 +19,9 @@ const Home2: React.FC = () => {
         );
 
         if (!Array.isArray(codsIndice)) {
-          throw new Error(t("error.invalidCodsIndiceFormat")); // Traducción de error
+          throw new Error(t("error.invalidCodsIndiceFormat"));
         }
+
         const cotizacionesPromises = codsIndice.map((cod: string) =>
           clienteAxios.get(
             `${baseURL}/IndiceCotizacion/getAllIndiceCotizacionByCod/${cod}`
@@ -27,12 +29,13 @@ const Home2: React.FC = () => {
         );
 
         const cotizacionesResponses = await Promise.all(cotizacionesPromises);
+
         const formattedData = cotizacionesResponses.map((response, index) => {
           const codIndice = codsIndice[index];
           const validData = response.data
             .filter((cotizacion: any) => {
               const fechaHora = `${cotizacion.fecha}T${cotizacion.hora}:00`;
-              return !isNaN(new Date(fechaHora).getTime()); 
+              return !isNaN(new Date(fechaHora).getTime());
             })
             .map((cotizacion: any) => ({
               x: new Date(`${cotizacion.fecha}T${cotizacion.hora}:00`).toISOString(),
@@ -48,14 +51,22 @@ const Home2: React.FC = () => {
         console.log("Formatted Data for Chart:", formattedData);
         setChartData(formattedData);
       } catch (error) {
-        console.error(t("error.fetchingData"), error); // Traducción de error
+        console.error(t("error.fetchingData"), error);
       } finally {
         setLoading(false);
+        setIsRendered(true);
       }
     };
 
     fetchData();
   }, [t]);
+
+
+  useEffect(() => {
+    if (isRendered) {
+      console.log("Component rendered, apply CSS adjustments.");
+    }
+  }, [isRendered]);
 
   return (
     <div>

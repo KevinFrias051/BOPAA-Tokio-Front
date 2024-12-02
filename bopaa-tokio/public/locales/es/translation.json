@@ -1,17 +1,14 @@
 {
   "header": {
-    "logoAlt": "Logo de CasaLindner",
-    "textLogoAlt": "Texto del logo de CasaLindner",
     "marketOpen": "Mercado Abierto: {{hours}}",
     "marketClosed": "Mercado Cerrado",
     "viewIndices": "Ver Índices",
     "viewCompanies": "Ver Empresas"
   },
-  
   "chart": {
-    "title": "Participación de Empresas", 
-    "title2": "Participación de indices", 
-    "yaxisTitle": "Valor del Índice", 
+    "title": "Participación de la Empresa",
+    "title2": "Participación del Índice",
+    "yaxisTitle": "Valor del Índice",
     "type": {
       "DIA": "Día",
       "MES": "Mes"
@@ -22,7 +19,7 @@
     "legend": {
       "position": {
         "right": "Leyenda a la derecha",
-        "bottom": "Leyenda abajo"
+        "bottom": "Leyenda en la parte inferior"
       }
     },
     "button": {
@@ -33,7 +30,11 @@
       "all": "Todo"
     }
   },
-
+  "currencySelector": {
+    "label": "Moneda:",
+    "usd": "Dólares Estadounidenses (USD)",
+    "yen": "Yen Japonés (JPY)"
+  },
   "loading": "Cargando...",
   "errorLoading": "Error al cargar los datos",
   "viewChart": "Ver gráfico",
