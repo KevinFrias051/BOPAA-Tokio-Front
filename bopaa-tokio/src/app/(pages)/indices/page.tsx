@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { MultiLineChart } from "@/app/componentes/graficoIndices/MultiLineChart";
 import clienteAxios, { baseURL } from "@/app/services/Axios";
+import { CurrencySelector } from "@/app/componentes/CurrencySelector/currencySelector";
 import { useTranslation } from "react-i18next";
 
 const Home2: React.FC = () => {
@@ -10,7 +11,8 @@ const Home2: React.FC = () => {
   const [chartData, setChartData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isRendered, setIsRendered] = useState(false);
-
+  const [currency, setCurrency] = useState<"USD" | "YEN">("USD");
+  const exchangeRate = 150;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,7 +41,10 @@ const Home2: React.FC = () => {
             })
             .map((cotizacion: any) => ({
               x: new Date(`${cotizacion.fecha}T${cotizacion.hora}:00`).toISOString(),
-              y: parseFloat(cotizacion.indiceCotizacion),
+              y:
+                currency === "USD"
+                  ? parseFloat(cotizacion.indiceCotizacion)
+                  : parseFloat(cotizacion.indiceCotizacion) * exchangeRate,
             }));
 
           return {
@@ -48,7 +53,6 @@ const Home2: React.FC = () => {
           };
         });
 
-        console.log("Formatted Data for Chart:", formattedData);
         setChartData(formattedData);
       } catch (error) {
         console.error(t("error.fetchingData"), error);
@@ -59,8 +63,7 @@ const Home2: React.FC = () => {
     };
 
     fetchData();
-  }, [t]);
-
+  }, [t, currency]); 
 
   useEffect(() => {
     if (isRendered) {
@@ -70,7 +73,8 @@ const Home2: React.FC = () => {
 
   return (
     <div>
-      {loading ? <p>{t("loading")}</p> : <MultiLineChart data={chartData} />}
+      <CurrencySelector currency={currency} onChange={setCurrency} />
+      {loading ? <p>{t("loading")}</p> : <MultiLineChart data={chartData} currency={currency} />}
     </div>
   );
 };

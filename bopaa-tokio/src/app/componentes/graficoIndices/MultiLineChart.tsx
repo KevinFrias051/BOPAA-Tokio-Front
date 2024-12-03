@@ -7,6 +7,7 @@ import "./MultiLineChart.css";
 
 interface LineChartProps {
   data: { name: string; data: { x: string; y: number }[] }[];
+  currency: "USD" | "YEN";
 }
 
 const filterDataByRange = (
@@ -30,7 +31,7 @@ const filterDataByRange = (
   });
 };
 
-export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
+export const MultiLineChart: React.FC<LineChartProps> = ({ data, currency }) => {
   const [range, setRange] = useState<"1d" | "3d" | "1w" | "1m" | "all">("1d");
   const [filteredSeries, setFilteredSeries] = useState(
     data.map((serie) => ({
@@ -48,9 +49,6 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
     }));
     setFilteredSeries(updatedSeries);
   }, [range, data]);
-
-
-  const rangeTranslation = t(`chart.type.${range}`);
 
   const options: ApexOptions = {
     chart: {
@@ -73,7 +71,11 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
     },
     yaxis: {
       title: {
-        text: t('chart.yaxisTitle', { defaultValue: 'Valor del Índice' }), 
+        text: t('chart.yaxisTitle', { defaultValue: 'Valor del Índice' }),
+      },
+      labels: {
+        formatter: (val) =>
+          `${currency === "USD" ? "$" : "¥"} ${val.toFixed(2)}`,
       },
     },
     tooltip: {
@@ -81,9 +83,9 @@ export const MultiLineChart: React.FC<LineChartProps> = ({ data }) => {
       x: {
         format: "yyyy-MM-dd HH:mm",
       },
-      style: {
-        fontSize: "14px",
-        fontFamily: "Arial, sans-serif",
+      y: {
+        formatter: (val) =>
+          `${currency === "USD" ? "$" : "¥"} ${val.toFixed(2)}`,
       },
     },
     legend: {

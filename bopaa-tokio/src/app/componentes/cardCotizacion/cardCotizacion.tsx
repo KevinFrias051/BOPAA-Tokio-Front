@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -16,8 +17,8 @@ interface ICotizacionCard {
 
 interface CardCotizacionProps {
   codEmpresa: string;
-  currency: 'USD' | 'YEN'; // Moneda seleccionada
-  exchangeRate: number;   // Tasa de cambio USD -> YEN
+  currency: 'USD' | 'YEN'; 
+  exchangeRate: number; 
 }
 
 export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, currency, exchangeRate }) => {
@@ -53,9 +54,9 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, curr
 
   const { nombreEmpresa, valorActual, fluctuacion } = cotizacion;
 
-  // Convertir el valor actual según la moneda seleccionada
-  const convertedValue =
+  const value =
     currency === "USD" ? valorActual : valorActual * exchangeRate;
+  const convertedValue = Number(value);
 
   return (
     <div className="cardCotizacion">
@@ -81,7 +82,7 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, curr
         </div>
         <div className="valor">
           <p>
-            {currency === "USD" ? "$" : "¥"} {convertedValue}
+            {currency === "USD" ? "$" : "¥"} {convertedValue.toFixed(2)}
           </p>
           <p
             className={`porcentaje ${
@@ -104,7 +105,12 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, curr
             <button className="modal-close" onClick={() => setShowModal(false)}>
               ×
             </button>
-            <LineChart cod={codEmpresa} onClose={() => setShowModal(false)} />
+            <LineChart
+              cod={codEmpresa}
+              onClose={() => setShowModal(false)}
+              currency={currency} // Pasa la moneda seleccionada
+              exchangeRate={exchangeRate} // Pasa el tipo de cambio
+            />
           </div>
         </div>
       )}

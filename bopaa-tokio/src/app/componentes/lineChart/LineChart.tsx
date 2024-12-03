@@ -10,19 +10,20 @@ import "./LineChart.css";
 type LineChartProps = {
   cod: string;
   onClose: () => void;
+  currency: "USD" | "YEN"; // Nueva prop
+  exchangeRate: number;    // Nueva prop
 };
 
 const processLineCotizations = (data: any[]) => {
   return data.map((item) => {
-    const datetime = `${item.fecha}T${item.hora}:00`; 
-    const zonedDate = toZonedTime(datetime, 'Asia/Tokyo'); 
+    const datetime = `${item.fecha}T${item.hora}:00`;
+    const zonedDate = toZonedTime(datetime, "Asia/Tokyo");
     return {
       x: zonedDate,
       y: parseFloat(item.cotizacion),
     };
   });
 };
-
 
 const filterDataByRange = (
   data: any[],
@@ -49,7 +50,7 @@ const downsampleData = (data: any[], step: number) => {
   return data.filter((_, index) => index % step === 0);
 };
 
-const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
+const LineChart: React.FC<LineChartProps> = ({ cod, onClose, currency, exchangeRate }) => {
   const [range, setRange] = useState<"1d" | "3d" | "1w" | "1m" | "all">("1d");
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -63,10 +64,11 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
         const response = await clienteAxios.get(
           `${baseURL}/cotizaciones/allCotizacionEmpByCod/${cod}`
         );
-        const processed = processLineCotizations(response.data);
-        console.log('response:',response.data)
+        const processed = processLineCotizations(response.data).map((item) => ({
+          ...item,
+          y: currency === "USD" ? item.y : item.y * exchangeRate, // Ajusta valores según moneda
+        }));
         setProcessedData(processed);
-        console.log('processed:',processed)
         setFilteredData(filterDataByRange(processed, range));
       } catch (error) {
         console.error("Error al cargar los datos:", error);
@@ -76,10 +78,11 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
     };
 
     loadCotizations();
-  }, [cod]);
+  }, [cod, currency, exchangeRate]);
 
   useEffect(() => {
-    let dataToDisplay = range === "all" 
+    // eslint-disable-next-line prefer-const
+    let dataToDisplay = range === "all"
       ? downsampleData(processedData, Math.max(Math.floor(processedData.length / 1000), 1))
       : filterDataByRange(processedData, range);
     setFilteredData(dataToDisplay);
@@ -89,58 +92,25 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
     chart: {
       type: "line",
       height: 250,
-      toolbar: {
-        show: false,
-      },
+      toolbar: { show: false },
       background: "#121212",
     },
     title: {
       text: `Cotización del Mercado De ${cod}`,
       align: "center",
-      style: {
-        color: "#ffffff",
-      },
+      style: { color: "#ffffff" },
     },
     xaxis: {
       type: "datetime",
-      labels: {
-        format: "dd/MM HH:mm",
-        style: {
-          colors: "#aaaaaa",
-        },
-      },
-      axisBorder: {
-        color: "#555555",
-      },
-      axisTicks: {
-        color: "#555555",
-      },
+      labels: { format: "dd/MM HH:mm", style: { colors: "#aaaaaa" } },
+      axisBorder: { color: "#555555" },
+      axisTicks: { color: "#555555" },
     },
     yaxis: {
       labels: {
-        formatter: (val) => val.toFixed(2),
-        style: {
-          colors: "#aaaaaa",
-        },
+        formatter: (val) => `${currency === "USD" ? "$" : "¥"} ${val.toFixed(2)}`, // Etiqueta ajustada
+        style: { colors: "#aaaaaa" },
       },
-    },
-    markers: {
-      size: 5,
-      colors: filteredData.map((point, index) => {
-        if (index === 0 || !filteredData[index - 1]) return "#00c8ff";
-
-        const prevPoint = filteredData[index - 1]?.y;
-        if (prevPoint === undefined || isNaN(prevPoint)) return "#00c8ff";
-
-        const difference = point.y - prevPoint;
-        const percentChange = (difference / prevPoint) * 100;
-
-        return Math.abs(percentChange) > 0.1
-          ? percentChange > 0
-            ? "#00ff00" 
-            : "#ff0000" 
-          : "#00c8ff";
-      }),
     },
     stroke: {
       curve: "smooth",
@@ -149,52 +119,24 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose }) => {
     },
     tooltip: {
       theme: "dark",
-      x: {
-        format: "dd/MM/yyyy HH:mm",
-      },
+      x: { format: "dd/MM/yyyy HH:mm" },
     },
   };
 
-  const series = [
-    {
-      name: "Cotización",
-      data: filteredData,
-    },
-  ];
+  const series = [{ name: "Cotización", data: filteredData }];
 
   return (
     <div className="chartContainer">
       <div style={{ marginBottom: "10px", textAlign: "center" }}>
-        <button
-          className={`rangeButton ${range === "1d" ? "rangeButtonActive" : ""}`}
-          onClick={() => setRange("1d")}
-        >
-          1 Día
-        </button>
-        <button
-          className={`rangeButton ${range === "3d" ? "rangeButtonActive" : ""}`}
-          onClick={() => setRange("3d")}
-        >
-          3 Días
-        </button>
-        <button
-          className={`rangeButton ${range === "1w" ? "rangeButtonActive" : ""}`}
-          onClick={() => setRange("1w")}
-        >
-          1 Semana
-        </button>
-        <button
-          className={`rangeButton ${range === "1m" ? "rangeButtonActive" : ""}`}
-          onClick={() => setRange("1m")}
-        >
-          1 Mes
-        </button>
-        <button
-          className={`rangeButton ${range === "all" ? "rangeButtonActive" : ""}`}
-          onClick={() => setRange("all")}
-        >
-          Todo
-        </button>
+        {["1d", "3d", "1w", "1m", "all"].map((r) => (
+          <button
+            key={r}
+            className={`rangeButton ${range === r ? "rangeButtonActive" : ""}`}
+            onClick={() => setRange(r as any)}
+          >
+            {r === "1d" ? "1 Día" : r === "3d" ? "3 Días" : r === "1w" ? "1 Semana" : r === "1m" ? "1 Mes" : "Todo"}
+          </button>
+        ))}
       </div>
 
       {loading ? (

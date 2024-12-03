@@ -83,7 +83,7 @@ export default function Home() {
     setExchangeRate(currency === "YEN" ? 150 : 1); // 1 USD = 150 Yen 
   }, [currency]);
 
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (allData.length > 0) {
       setChartData(filterAndTransform(allData, selectedType));

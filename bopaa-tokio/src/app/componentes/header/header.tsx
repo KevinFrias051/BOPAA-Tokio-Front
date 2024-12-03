@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 "use client";
 import './header.css';
 import { useRouter, usePathname } from 'next/navigation';

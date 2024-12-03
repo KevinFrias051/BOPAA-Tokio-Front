@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 "use client";
 import { metadata } from './metadata';
 import { ReactNode } from 'react';
