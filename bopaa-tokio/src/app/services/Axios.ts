@@ -1,6 +1,6 @@
 /* eslint-disable prefer-promise-reject-errors */
 import axios from 'axios';
-export const baseURL= 'http://localhost:8080';
+export const baseURL= 'http://backend:3001';
 const clienteAxios = axios.create({
   baseURL,
 });

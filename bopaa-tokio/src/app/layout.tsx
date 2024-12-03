@@ -1,6 +1,5 @@
 // eslint-disable-next-line react-hooks/exhaustive-deps
 "use client";
-import { metadata } from './metadata';
 import { ReactNode } from 'react';
 import './globals.css';
 import { Header } from './componentes/header/header';

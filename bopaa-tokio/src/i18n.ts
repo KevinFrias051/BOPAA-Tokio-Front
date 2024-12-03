@@ -15,7 +15,9 @@ i18n
       escapeValue: false, 
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json', 
+      loadPath: isServer 
+        ? '/locales/{{lng}}/translation.json' // Server expects absolute paths
+        : '/locales/{{lng}}/translation.json', // Browser can use relative paths
     },
     detection: {
       order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
