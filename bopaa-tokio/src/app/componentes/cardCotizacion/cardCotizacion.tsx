@@ -108,8 +108,8 @@ export const CardCotizacion: React.FC<CardCotizacionProps> = ({ codEmpresa, curr
             <LineChart
               cod={codEmpresa}
               onClose={() => setShowModal(false)}
-              currency={currency} // Pasa la moneda seleccionada
-              exchangeRate={exchangeRate} // Pasa el tipo de cambio
+              currency={currency}
+              exchangeRate={exchangeRate}
             />
           </div>
         </div>

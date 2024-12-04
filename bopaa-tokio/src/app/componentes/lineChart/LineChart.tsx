@@ -10,8 +10,8 @@ import "./LineChart.css";
 type LineChartProps = {
   cod: string;
   onClose: () => void;
-  currency: "USD" | "YEN"; // Nueva prop
-  exchangeRate: number;    // Nueva prop
+  currency: "USD" | "YEN";
+  exchangeRate: number;    
 };
 
 const processLineCotizations = (data: any[]) => {
@@ -66,7 +66,7 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose, currency, exchangeR
         );
         const processed = processLineCotizations(response.data).map((item) => ({
           ...item,
-          y: currency === "USD" ? item.y : item.y * exchangeRate, // Ajusta valores según moneda
+          y: currency === "USD" ? item.y : item.y * exchangeRate,
         }));
         setProcessedData(processed);
         setFilteredData(filterDataByRange(processed, range));
@@ -108,7 +108,7 @@ const LineChart: React.FC<LineChartProps> = ({ cod, onClose, currency, exchangeR
     },
     yaxis: {
       labels: {
-        formatter: (val) => `${currency === "USD" ? "$" : "¥"} ${val.toFixed(2)}`, // Etiqueta ajustada
+        formatter: (val) => `${currency === "USD" ? "$" : "¥"} ${val.toFixed(2)}`,
         style: { colors: "#aaaaaa" },
       },
     },
