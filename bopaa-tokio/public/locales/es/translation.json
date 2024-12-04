@@ -1,0 +1,42 @@
+{
+  "header": {
+    "marketOpen": "Mercado Abierto",
+    "marketClosed": "Mercado Cerrado",
+    "viewIndices": "Ver Índices",
+    "viewCompanies": "Ver Empresas"
+  },
+  "chart": {
+    "title": "Participación de las Empresas",
+    "title2": "Participación del Índice",
+    "yaxisTitle": "Valor del Índice",
+    "type": {
+      "DIA": "Día",
+      "MES": "Mes"
+    },
+    "tooltip": {
+      "value": "{{value}} participación"
+    },
+    "legend": {
+      "position": {
+        "right": "Leyenda a la derecha",
+        "bottom": "Leyenda en la parte inferior"
+      }
+    },
+    "button": {
+      "1d": "1 Día",
+      "3d": "3 Días",
+      "1w": "1 Semana",
+      "1m": "1 Mes",
+      "all": "Todo"
+    }
+  },
+  "currencySelector": {
+    "label": "Moneda:",
+    "usd": "Dólares Estadounidenses (USD)",
+    "yen": "Yen Japonés (JPY)"
+  },
+  "loading": "Cargando...",
+  "errorLoading": "Error al cargar los datos",
+  "viewChart": "Ver gráfico",
+  "noData": "No hay datos disponibles"
+}

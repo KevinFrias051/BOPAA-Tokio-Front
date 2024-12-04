@@ -1,0 +1,42 @@
+{
+  "header": {
+    "marketOpen": "Market Open: {{hours}}",
+    "marketClosed": "Market Closed",
+    "viewIndices": "View Indices",
+    "viewCompanies": "View Companies"
+  },
+  "chart": {
+    "title": "Company Participation",
+    "title2": "Index Participation",
+    "yaxisTitle": "Index Value",
+    "type": {
+      "DIA": "Day",
+      "MES": "Month"
+    },
+    "tooltip": {
+      "value": "{{value}} participation"
+    },
+    "legend": {
+      "position": {
+        "right": "Legend on the right",
+        "bottom": "Legend at the bottom"
+      }
+    },
+    "button": {
+      "1d": "1 Day",
+      "3d": "3 Days",
+      "1w": "1 Week",
+      "1m": "1 Month",
+      "all": "All"
+    }
+  },
+  "currencySelector": {
+    "label": "Currency:",
+    "usd": "US Dollars (USD)",
+    "yen": "Japanese Yen (JPY)"
+  },
+  "loading": "Loading...",
+  "errorLoading": "Error loading data",
+  "viewChart": "View chart",
+  "noData": "No data available"
+}

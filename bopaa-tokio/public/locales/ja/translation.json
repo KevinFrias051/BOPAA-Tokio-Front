@@ -1,0 +1,42 @@
+{
+  "header": {
+    "marketOpen": "市場オープン: {{hours}}",
+    "marketClosed": "市場閉鎖",
+    "viewIndices": "インデックスを見る",
+    "viewCompanies": "企業を見る"
+  },
+  "chart": {
+    "title": "企業の参加",
+    "title2": "インデックスの参加",
+    "yaxisTitle": "インデックスの値",
+    "type": {
+      "DIA": "日",
+      "MES": "月"
+    },
+    "tooltip": {
+      "value": "{{value}} 参加"
+    },
+    "legend": {
+      "position": {
+        "right": "右側の凡例",
+        "bottom": "下部の凡例"
+      }
+    },
+    "button": {
+      "1d": "1日",
+      "3d": "3日",
+      "1w": "1週間",
+      "1m": "1ヶ月",
+      "all": "すべて"
+    }
+  },
+  "currencySelector": {
+    "label": "通貨:",
+    "usd": "米ドル (USD)",
+    "yen": "日本円 (JPY)"
+  },
+  "loading": "読み込み中...",
+  "errorLoading": "データの読み込みエラー",
+  "viewChart": "グラフを見る",
+  "noData": "データがありません"
+}
